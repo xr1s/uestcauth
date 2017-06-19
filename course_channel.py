@@ -1,5 +1,5 @@
 import requests
-from login import login
+from uestcauth import uestc
 from sys import stderr
 from getpass import getpass
 import re
@@ -9,16 +9,14 @@ open_channel = []
 
 channel_url = 'http://eams.uestc.edu.cn/eams/stdElectCourse!defaultPage.action?electionProfile.id={channel}'
 
-failregex = re.compile('失败|没有开放')
-
 if __name__ == '__main__':
     stderr.write('Username: ')
     username = input()
     password = getpass()
-    session = login(username, password)
+    user = uestc(username, password)
     for chan in channel_list:
-        result = session.get(channel_url.format(channel=chan)).text
-        if failregex.search(result):
+        result = user.visit(channel_url.format(channel=chan))
+        if re.search('失败|没有开放', result):
             print(chan, 'closed')
         else:
             open_channel.append(chan)
