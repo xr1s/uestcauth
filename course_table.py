@@ -23,18 +23,18 @@ def course_info(user, semesterid=None):
         'setting.kind': 'std',
         'startWeek': 1,
         'semester.id': semesterid,
-        'ids': ids_pattern.search(user.visit(refer_url))[1],
+        'ids': ids_pattern.search(user.visit(refer_url)).group(1),
     }
     courses = []
     for match in course_pattern.finditer(user.visit(table_url, post_form)):
         course = {}
         info = info_pattern.search(match[1])
-        course['teacher_id'] = info[1]
-        course['teacher_name'] = info[2]
-        course['course_id'] = info[3]
-        course['course_name'] = info[4]
-        course['room_id'] = info[5]
-        course['room_name'] = info[6]
+        course['teacher_id'] = info.group(1)
+        course['teacher_name'] = info.group(2)
+        course['course_id'] = info.group(3)
+        course['course_name'] = info.group(4)
+        course['room_id'] = info.group(5)
+        course['room_name'] = info.group(6)
         course['weeks'] = tuple(i for i, v in enumerate(info[7]) if v == '1')
         course['time'] = []
         time = time_pattern.findall(match[2])

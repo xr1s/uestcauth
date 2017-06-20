@@ -49,7 +49,8 @@ class uestc(object):
     def name(self):
         if not self._name:
             info = self._session.get(uestc.eamsurl)
-            self._name = re.search(r'>(.*)\(' + self.id + r'\)<', info.text)[1]
+            self._name = re.search(r'>(.*)\(' + self.id + r'\)<', info.text)
+            self._name = self.name.group(1)
         return self._name
 
     def visit(self, url, data=None):
