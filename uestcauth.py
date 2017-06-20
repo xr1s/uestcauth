@@ -1,3 +1,7 @@
+# 电子科技大学认证服务
+# 获取session，用于其它操作
+# TODO: 获取登录用户的信息
+
 import requests
 from bs4 import BeautifulSoup
 from getpass import getpass

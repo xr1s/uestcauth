@@ -1,3 +1,7 @@
+# 暴力扫描开放的选课通道脚本
+# 可以更改下面的channel_list来更改扫描范围
+# TODO: 多线程或异步优化查询速度
+
 import requests
 from uestcauth import uestc
 from sys import stderr
